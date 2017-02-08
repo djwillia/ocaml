@@ -923,16 +923,17 @@ nativecclinkopts=''
 # ld (for shared libs), not for cc
 nativeccrpath="$byteccrpath"
 
-case "$arch,$nativecc,$system,$model" in
-  *,*,nextstep,*)      nativecclinkopts="-posix";;
-  *,*,rhapsody,*)      if $arch64; then partialld="ld -r -arch ppc64"; fi;;
-  amd64,gcc*,macosx,*) partialld="ld -r -arch x86_64";;
-  amd64,gcc*,solaris,*) partialld="ld -r -m elf_x86_64";;
-  power,gcc*,elf,ppc)   partialld="ld -r -m elf32ppclinux";;
-  power,gcc*,elf,ppc64)   partialld="ld -r -m elf64ppc";;
-  power,gcc*,elf,ppc64le)   partialld="ld -r -m elf64lppc";;
-esac
-
+if test -z "$partialld"; then
+    case "$arch,$nativecc,$system,$model" in
+        *,*,nextstep,*)      nativecclinkopts="-posix";;
+        *,*,rhapsody,*)      if $arch64; then partialld="ld -r -arch ppc64"; fi;;
+        amd64,gcc*,macosx,*) partialld="ld -r -arch x86_64";;
+        amd64,gcc*,solaris,*) partialld="ld -r -m elf_x86_64";;
+        power,gcc*,elf,ppc)   partialld="ld -r -m elf32ppclinux";;
+        power,gcc*,elf,ppc64)   partialld="ld -r -m elf64ppc";;
+        power,gcc*,elf,ppc64le)   partialld="ld -r -m elf64lppc";;
+    esac
+fi
 asppprofflags='-DPROFILING'
 
 case "$arch,$system" in
