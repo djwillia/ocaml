@@ -567,7 +567,7 @@ else
                      echo "#define ARCH_SIXTYFOUR" >> m.h
                      set 4 4 8 2 8
                      arch64=true;;
-    x86_64-elf-*) inf "Wow! A 64 bit architecture!"
+    x86_64-elf) inf "Wow! A 64 bit architecture!"
                      echo "#define ARCH_SIXTYFOUR" >> m.h
                      set 4 4 8 2 8
                      arch64=true;;
